@@ -7,12 +7,8 @@ O projeto sobe **dois containers** numa rede Docker dedicada:
 
 | Container | Funcao | Imagem |
 |-----------|--------|--------|
-| `db-dimdim-RM000000` | Banco de dados PostgreSQL com **volume nomeado** | Imagem publica `postgres:16-alpine` |
-| `app-dimdim-RM000000` | API RESTful (Java + Spring Boot) com CRUD | **Imagem personalizada** via Dockerfile |
-
-> **IMPORTANTE:** troque `RM000000` pelo RM do representante da equipe em
-> **todos os comandos abaixo**. O nome do container precisa conter o RM
-> (penalidade de -1,0 ponto por container sem RM).
+| `db-dimdim-RM556649` | Banco de dados PostgreSQL com **volume nomeado** | Imagem publica `postgres:16-alpine` |
+| `app-dimdim-RM556649` | API RESTful (Java + Spring Boot) com CRUD | **Imagem personalizada** via Dockerfile |
 
 ---
 
