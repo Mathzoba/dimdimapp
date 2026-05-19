@@ -1,0 +1,37 @@
+services:
+
+  db-dimdim-RM556649:
+    image: postgres:16-alpine
+    container_name: db-dimdim-RM556649
+    environment:
+      POSTGRES_USER: dimdim
+      POSTGRES_PASSWORD: dimdim123
+      POSTGRES_DB: dimdimdb
+    volumes:
+      - pgdata-dimdim:/var/lib/postgresql/data
+    networks:
+      - dimdim-net
+    restart: unless-stopped
+
+  app-dimdim-RM556649:
+    build: .
+    container_name: app-dimdim-RM556649
+    ports:
+      - "8080:8080"
+    environment:
+      DB_HOST: db-dimdim-RM556649
+      DB_PORT: 5432
+      DB_USER: dimdim
+      DB_PASSWORD: dimdim123
+      DB_NAME: dimdimdb
+    depends_on:
+      - db-dimdim-RM556649
+    networks:
+      - dimdim-net
+    restart: unless-stopped
+
+volumes:
+  pgdata-dimdim:
+
+networks:
+  dimdim-net:
