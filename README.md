@@ -98,7 +98,7 @@ Roda em **background** (`-d`), com o **RM no nome** e o **volume nomeado**.
 
 ```bash
 docker run -d \
-  --name db-dimdim-RM000000 \
+  --name db-dimdim-RM556649 \
   --network dimdim-network \
   -v dimdim-db-data:/var/lib/postgresql/data \
   -e POSTGRES_USER=dimdim \
@@ -124,10 +124,10 @@ A variavel `DB_HOST` aponta para o **nome do container do banco**
 
 ```bash
 docker run -d \
-  --name app-dimdim-RM000000 \
+  --name app-dimdim-RM556649 \
   --network dimdim-network \
   -p 8080:8080 \
-  -e DB_HOST=db-dimdim-RM000000 \
+  -e DB_HOST=db-dimdim-RM556649 \
   dimdimapp-imagem
 ```
 
@@ -140,7 +140,7 @@ docker ps
 Acompanhe a subida da aplicacao (o Spring Boot leva alguns segundos):
 
 ```bash
-docker logs -f app-dimdim-RM000000
+docker logs -f app-dimdim-RM556649
 ```
 
 ---
@@ -187,7 +187,7 @@ curl -X DELETE http://<IP-PUBLICO>:8080/clientes/1
 
 ```bash
 # Container da aplicacao: estrutura de diretorios e usuario conectado
-docker container exec -it app-dimdim-RM000000 sh
+docker container exec -it app-dimdim-RM556649 sh
 ls
 pwd
 whoami        # deve retornar "dimdimuser" (usuario NAO-root)
@@ -200,7 +200,7 @@ Apos cada operacao (CREATE / UPDATE / DELETE) do CRUD, conecte-se ao
 banco e rode um SELECT para comprovar a alteracao:
 
 ```bash
-docker container exec -it db-dimdim-RM000000 \
+docker container exec -it db-dimdim-RM556649 \
   psql -U dimdim -d dimdimdb -c "SELECT * FROM clientes;"
 ```
 
@@ -210,7 +210,7 @@ docker container exec -it db-dimdim-RM000000 \
 # 1. Cadastre alguns clientes pela API
 # 2. Remova e recrie o container do banco:
 docker rm -f db-dimdim-RM000000
-docker run -d --name db-dimdim-RM000000 --network dimdim-network \
+docker run -d --name db-dimdim-RM556649 --network dimdim-network \
   -v dimdim-db-data:/var/lib/postgresql/data \
   -e POSTGRES_USER=dimdim -e POSTGRES_PASSWORD=dimdim123 \
   -e POSTGRES_DB=dimdimdb postgres:16-alpine
@@ -234,7 +234,7 @@ docker container exec -it db-dimdim-RM000000 \
 | Variavel de ambiente | `ENV` no Dockerfile + `-e` no run |
 | Dockerfile e imagem personalizada | `Dockerfile` + `dimdimapp-imagem` |
 | Containers em background | flag `-d` |
-| RM no nome dos containers | `-RM000000` |
+| RM no nome dos containers | `-RM556649` |
 | Execucao em nuvem | VM Azure Linux |
 
 ---
@@ -242,7 +242,7 @@ docker container exec -it db-dimdim-RM000000 \
 ## Limpeza do ambiente
 
 ```bash
-docker rm -f app-dimdim-RM000000 db-dimdim-RM000000
+docker rm -f app-dimdim-RM556649 db-dimdim-RM556649
 docker network rm dimdim-network
 docker volume rm dimdim-db-data   # CUIDADO: apaga os dados persistidos
 ```
